@@ -1,6 +1,7 @@
 package com.anubhuti.online_quiz_application.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "quizzes")
@@ -15,6 +16,9 @@ public class Quiz {
     private String title;
 
     private String description;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    private List<Question> questions;
 
     public Quiz() {
     }
@@ -41,5 +45,13 @@ public class Quiz {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }
