@@ -1,6 +1,9 @@
 package com.anubhuti.online_quiz_application.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -11,12 +14,17 @@ public class User {
     @Column(name = "user_id")
     private Integer userId;
 
+    @NotBlank(message = "Username cannot be empty")
     @Column(nullable = false)
     private String username;
 
+    @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Enter a valid email")
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     @Column(nullable = false)
     private String password;
 

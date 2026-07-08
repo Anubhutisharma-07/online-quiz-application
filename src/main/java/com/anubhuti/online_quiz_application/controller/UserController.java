@@ -2,34 +2,33 @@ package com.anubhuti.online_quiz_application.controller;
 
 import com.anubhuti.online_quiz_application.entity.User;
 import com.anubhuti.online_quiz_application.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.anubhuti.online_quiz_application.dto.LoginResponse;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/test")
     public String test() {
         return "Controller Working!";
     }
 
-    @Autowired
-    private UserService userService;
-
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
-
+    public User registerUser(@Valid @RequestBody User user) {
         return userService.registerUser(user);
-
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody User user) {
-
+    public String loginUser(@RequestBody User user) {
         return userService.loginUser(
                 user.getEmail(),
                 user.getPassword()
         );
-
     }
 }
